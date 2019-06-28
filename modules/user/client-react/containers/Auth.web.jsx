@@ -29,11 +29,14 @@ AuthRoute.propTypes = {
   redirectOnLoggedIn: PropTypes.bool
 };
 
-const isRoleMatch = (role, currentUser) => {
+const isRoleMatch = (role = [], currentUser) => {
+  if (!currentUser) {
+    return false;
+  }
   if (!role) {
     return true;
   }
-  return currentUser && (Array.isArray(role) ? role : [role]).includes(currentUser.role);
+  return (Array.isArray(role) ? role : [role]).includes(currentUser.role);
 };
 
 export * from './AuthBase';
